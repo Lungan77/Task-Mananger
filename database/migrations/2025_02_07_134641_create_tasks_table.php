@@ -12,13 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tasks', function (Blueprint $table) {
-            $table->bigInteger('id');
-            $table->string('name');
-            $table->string('description');
-            $table->string('image');
-            $table->foreignId('user_Id');
-            $table->string('status');
-            $table->timestamps();
+           $table->id();
+           $table->string('title');+
+           
+           $table->text('description');
+           $table->boolean('completed')->default(false);
+           $table->unsignedBigInteger('user_id');
+           $table->string('image')->nullable();
+           $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+           $table->timestamps();
         });
     }
 
